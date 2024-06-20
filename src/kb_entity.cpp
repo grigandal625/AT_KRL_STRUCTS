@@ -27,6 +27,7 @@ map<string, string> KBEntity::getAttrs() const
 {
     map<string, string> result;
     result.insert(pair<string, string>("id", this->id));
+    return result;
 }
 
 xmlNodePtr KBEntity::toXML() const

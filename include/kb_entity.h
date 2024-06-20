@@ -24,14 +24,14 @@ public:
     string getId() const { return id; };
     string getTag() const { return tag; };
     char* getDesc() const { return desc; };
-    virtual string KRL() const;
+    virtual string KRL() const { return ""; };
     virtual map<string, string> getAttrs() const;
     virtual xmlNodePtr toXML() const;
     virtual vector<xmlNodePtr> getInnerXML() const;
     virtual Json::Value toJSON() const;
-    virtual bool validate(const KnowledgeBase &kb);
-    virtual ~KBEntity();
-    virtual string getXMLOwnerPath() const;
+    virtual bool validate(const KnowledgeBase &kb) { return true; };
+    virtual ~KBEntity() { free(desc); };
+    virtual string getXMLOwnerPath() const { return ""; };
 
     bool isValidated() const { return validated; }
     // static KBEntity fromXML(xmlNodePtr node);

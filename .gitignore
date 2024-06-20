@@ -1,1 +1,23 @@
-/.vscode
+# папка build
+build/
+
+# временные файлы, создаваемые компилятором
+*.o
+*.obj
+*.so
+*.exe
+*.dll
+*.dylib
+
+# файлы CMake
+CMakeCache.txt
+CMakeFiles/
+
+# временные файлы редакторов и IDE
+*.swp
+*.swo
+*.log
+*.tmp
+*.user
+*.workspace
+*.vscode
