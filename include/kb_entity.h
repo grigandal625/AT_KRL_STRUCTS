@@ -23,6 +23,7 @@ public:
     KBEntity(const string id, const string tag, const char* desc);
     string getId() const { return id; };
     string getTag() const { return tag; };
+    void setTag(const string& tag) { this->tag = tag; };
     char* getDesc() const { return desc; };
     virtual string KRL() const { return ""; };
     virtual map<string, string> getAttrs() const;

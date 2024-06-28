@@ -22,11 +22,15 @@ set(SOURCE_FILES
     src/kb_entity.cpp
     src/kb_type.cpp
     src/membership_function.cpp
+    src/non_factor.cpp
+    src/kb_value.cpp
 )
 
 set(TEST_FILES
     tests/kb_type_tests.cpp
     tests/membership_function_tests.cpp
+    tests/non_factor_tests.cpp
+    tests/kb_value_tests.cpp
 )
 
 # Создаем исполняемый файл для тестов
