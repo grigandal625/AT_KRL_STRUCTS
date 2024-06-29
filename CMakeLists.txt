@@ -27,6 +27,7 @@ set(SOURCE_FILES
 )
 
 set(TEST_FILES
+    tests/kb_entity_tests.cpp
     tests/kb_type_tests.cpp
     tests/membership_function_tests.cpp
     tests/non_factor_tests.cpp

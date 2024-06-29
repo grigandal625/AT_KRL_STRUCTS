@@ -7,7 +7,7 @@
 using namespace std;
 
 // Реализация класса MFPoint
-MFPoint::MFPoint(float x, float y) : KBEntity("", "point", nullptr), x(x), y(y) {}
+MFPoint::MFPoint(float x, float y) : KBEntity("point"), x(x), y(y) {}
 
 map<string, string> MFPoint::getAttrs() const {
     map<string, string> attrs = KBEntity::getAttrs();
@@ -43,7 +43,7 @@ MFPoint* MFPoint::fromJSON(const Json::Value& json) {
 
 // Реализация класса MembershipFunction
 MembershipFunction::MembershipFunction(const string& name, float min, float max, const vector<MFPoint*>& points)
-    : KBEntity("", "parameter", nullptr), name(name), min(min), max(max) {
+    : KBEntity("parameter"), name(name), min(min), max(max) {
     this->points = {};
     for (auto& point : points) {
         MFPoint * new_point = MFPoint::fromJSON(point->toJSON());

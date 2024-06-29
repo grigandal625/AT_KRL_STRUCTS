@@ -10,20 +10,6 @@
 
 using namespace std;
 
-// Helper function to create an XML node
-xmlNodePtr createXMLNode(const string &name, const string &content) {
-    xmlNodePtr node = xmlNewNode(NULL, BAD_CAST name.c_str());
-    xmlNodeSetContent(node, BAD_CAST content.c_str());
-    return node;
-}
-
-// Test KBEntity class
-TEST(KBEntityTest, Initialization) {
-    KBEntity entity("entity1", "entity", "description1");
-    EXPECT_EQ(entity.getId(), "entity1");
-    EXPECT_EQ(entity.getTag(), "entity");
-    EXPECT_STREQ(entity.getDesc(), "description1");
-}
 
 // Test KBType class
 TEST(KBTypeTest, Initialization) {
@@ -290,9 +276,4 @@ TEST(KBFuzzyTypeTests, KRLReturnsCorrectString) {
                           "КОММЕНТАРИЙ fuzzy_id\n";
     
     EXPECT_EQ(fuzzy_type.KRL(), expected_krl);
-}
-
-int main(int argc, char **argv) {
-    ::testing::InitGoogleTest(&argc, argv);
-    return RUN_ALL_TESTS();
 }

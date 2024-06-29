@@ -8,25 +8,12 @@
 
 using namespace std;
 
-KBEntity::KBEntity(const string id, const string tag, const char *desc)
-{
-    this->id = id;
-    this->tag = tag;
-    if (desc != NULL)
-    {
-        this->desc = new char[strlen(desc) + 1];
-        strcpy(this->desc, desc);
-    }
-    else
-    {
-        this->desc = NULL;
-    }
-}
+KBEntity::KBEntity(const string tag) : tag(tag) {};
+
 
 map<string, string> KBEntity::getAttrs() const
 {
     map<string, string> result;
-    result.insert(pair<string, string>("id", this->id));
     return result;
 }
 
@@ -63,5 +50,39 @@ Json::Value KBEntity::toJSON() const
 
     result["tag"] = this->getTag();
 
+    return result;
+}
+
+
+KBIdentity::KBIdentity(const string id, const string tag, const char* desc) : KBEntity(tag), id(id) {
+    if (desc != NULL)
+    {
+        this->desc = new char[strlen(desc) + 1];
+        strcpy(this->desc, desc);
+    }
+    else
+    {
+        this->desc = NULL;
+    }
+}
+
+void KBIdentity::setDesc(const char* desc) {
+    if (desc != NULL)
+    {
+        this->desc = new char[strlen(desc) + 1];
+        strcpy(this->desc, desc);
+    }
+    else
+    {
+        this->desc = NULL;
+    }
+}
+
+map<string, string> KBIdentity::getAttrs() const {
+    map<string, string> result = KBEntity::getAttrs();
+    result["id"] = this->id;
+    if (this->desc!= NULL) {
+        result["desc"] = this->desc;
+    }
     return result;
 }

@@ -27,7 +27,7 @@ string join(const vector<string> &values, const string &delimiter)
 // KBType implementation
 
 KBType::KBType(const string id, const char *desc)
-    : KBEntity(id, "type", desc) {}
+    : KBIdentity(id, "type", desc) {}
 
 string KBType::KRL() const
 {
@@ -45,7 +45,7 @@ string KBType::KRL() const
 
 map<string, string> KBType::getAttrs() const
 {
-    map<string, string> attrs = KBEntity::getAttrs();
+    map<string, string> attrs = KBIdentity::getAttrs();
     attrs["meta"] = getMeta();
     attrs["desc"] = getDesc() != NULL ? string(getDesc()) : getId();
     return attrs;

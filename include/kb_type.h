@@ -11,7 +11,7 @@
 
 using namespace std;
 
-class KBType : public KBEntity
+class KBType : public KBIdentity
 {
 public:
     KBType(const string id, const char *desc = nullptr);

@@ -7,7 +7,7 @@
 using namespace std;
 
 Evaluatable::Evaluatable(NonFactor *nonFactor)
-    : KBEntity("", "evaluatable", nullptr),
+    : KBEntity("evaluatable"),
       nonFactor(nonFactor != nullptr ? new NonFactor(
                                            nonFactor->getBelief(),
                                            nonFactor->getProbability(),

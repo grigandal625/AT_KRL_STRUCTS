@@ -10,7 +10,7 @@ double num(double v) {
 }
 
 NonFactor::NonFactor(double belief, double probability, double accuracy) 
-    : KBEntity("", "with", nullptr), belief(num(belief)), probability(num(probability)), accuracy(num(accuracy)) {
+    : KBEntity("with"), belief(num(belief)), probability(num(probability)), accuracy(num(accuracy)) {
     this->initialized = (belief != 50.0) || (probability != 100.0) || (accuracy != 0.0);
 }
 
