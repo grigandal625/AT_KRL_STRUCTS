@@ -24,6 +24,7 @@ set(SOURCE_FILES
     src/membership_function.cpp
     src/non_factor.cpp
     src/kb_value.cpp
+    src/kb_reference.cpp
 )
 
 set(TEST_FILES
@@ -32,6 +33,7 @@ set(TEST_FILES
     tests/membership_function_tests.cpp
     tests/non_factor_tests.cpp
     tests/kb_value_tests.cpp
+    tests/kb_reference_tests.cpp
 )
 
 # Создаем исполняемый файл для тестов

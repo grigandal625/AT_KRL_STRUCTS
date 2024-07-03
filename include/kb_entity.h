@@ -35,7 +35,7 @@ public:
     // static KBEntity fromJSON(const Json::Value &json);
 
 
-    KBEntity *owner = NULL;
+    KBEntity *owner = nullptr;
 };
 
 

@@ -21,7 +21,7 @@ private:
 public:
     NonFactor(double belief = 50.0, double probability = 100.0, double accuracy = 0.0);
     virtual ~NonFactor() = default;
-
+    NonFactor* copy() const;
     double getBelief() const { return belief; }
     double getProbability() const { return probability; }
     double getAccuracy() const { return accuracy; }

@@ -9,6 +9,7 @@
 #include <vector>
 #include <stdexcept>
 #include <regex>
+#include "utils.h"
 
 using namespace std;
 
@@ -19,6 +20,12 @@ protected:
 
 public:
     Evaluatable(NonFactor* nonFactor = nullptr);
+
+    bool getConvertNonFactor() const { return convertNonFactor; };
+    void setConvertNonFactor(bool convertNonFactor) { this->convertNonFactor = convertNonFactor; };
+    
+    NonFactor* getNonFactor() const { return nonFactor; };
+    void setNonFactor(NonFactor* nonFactor) { this->nonFactor = nonFactor->copy(); };
     virtual ~Evaluatable();
 
     virtual map<string, string> getAttrs() const override;
@@ -28,7 +35,7 @@ public:
     static Evaluatable* fromJSON(const Json::Value& json);
 
     virtual string getInnerKRL() const = 0;
-    string KRL() const override;
+    virtual string KRL() const override;
 };
 
 class KBValue : public Evaluatable {
@@ -39,7 +46,7 @@ public:
     static KBValue* fromJSON(const Json::Value& json);
 
     virtual KBValue* evaluate() = 0;
-    virtual vector<xmlNodePtr> innerXML() const = 0;
+    virtual vector<xmlNodePtr> getInnerXML() const override = 0;
     virtual string getContentAsString() const = 0;
     virtual void setContent(const string& value) = 0;
     virtual void setContent(double value) = 0;
@@ -57,7 +64,7 @@ public:
     KBSymbolicValue(const string& content, NonFactor* nonFactor = nullptr);
 
     string getInnerKRL() const override;
-    vector<xmlNodePtr> innerXML() const override;
+    vector<xmlNodePtr> getInnerXML() const override;
     KBValue* evaluate() override;
 
     string getContentAsString() const override { return content; }
@@ -74,13 +81,13 @@ public:
     KBNumericValue(double content, NonFactor* nonFactor = nullptr);
 
     string getInnerKRL() const override;
-    vector<xmlNodePtr> innerXML() const override;
+    vector<xmlNodePtr> getInnerXML() const override;
     KBValue* evaluate() override;
 
     double getContent() const { 
         return content; 
     }
-    string getContentAsString() const override { return to_string(content); }
+    string getContentAsString() const override { return doubleToString(content); }
     void setContent(const string& value) override { content = stod(value); }
     void setContent(double value) override { content = value; }
     void setContent(bool value) override { throw invalid_argument("Invalid type for KBNumericValue"); }
@@ -94,7 +101,7 @@ public:
     KBBooleanValue(bool content, NonFactor* nonFactor = nullptr);
 
     string getInnerKRL() const override;
-    vector<xmlNodePtr> innerXML() const override;
+    vector<xmlNodePtr> getInnerXML() const override;
     KBValue* evaluate() override;
 
     bool getContent() const { return content; }

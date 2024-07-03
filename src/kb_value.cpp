@@ -3,6 +3,7 @@
 #include <libxml/parser.h>
 #include <json/json.h>
 #include <regex>
+#include "utils.h"
 
 using namespace std;
 
@@ -141,7 +142,7 @@ string KBSymbolicValue::getInnerKRL() const
     return "\"" + content + "\"";
 }
 
-vector<xmlNodePtr> KBSymbolicValue::innerXML() const
+vector<xmlNodePtr> KBSymbolicValue::getInnerXML() const
 {
     vector<xmlNodePtr> nodes;
     xmlNodePtr textNode = xmlNewText(reinterpret_cast<const xmlChar *>(content.c_str()));
@@ -159,13 +160,13 @@ KBNumericValue::KBNumericValue(double content, NonFactor *nonFactor)
 
 string KBNumericValue::getInnerKRL() const
 {
-    return to_string(content);
+    return doubleToString(content);
 }
 
-vector<xmlNodePtr> KBNumericValue::innerXML() const
+vector<xmlNodePtr> KBNumericValue::getInnerXML() const
 {
     vector<xmlNodePtr> nodes;
-    string contentStr = to_string(content);
+    string contentStr = doubleToString(content);
     xmlNodePtr textNode = xmlNewText(reinterpret_cast<const xmlChar *>(contentStr.c_str()));
     nodes.push_back(textNode);
     return nodes;
@@ -184,7 +185,7 @@ string KBBooleanValue::getInnerKRL() const
     return content ? "true" : "false";
 }
 
-vector<xmlNodePtr> KBBooleanValue::innerXML() const
+vector<xmlNodePtr> KBBooleanValue::getInnerXML() const
 {
     vector<xmlNodePtr> nodes;
     string contentStr = content ? "True" : "False";

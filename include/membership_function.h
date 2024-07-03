@@ -12,10 +12,10 @@ using namespace std;
 // Класс MFPoint
 class MFPoint : public KBEntity {
 public:
-    float x;
-    float y;
+    double x;
+    double y;
 
-    MFPoint(float x, float y);
+    MFPoint(double x, double y);
 
     map<string, string> getAttrs() const override;
     string KRL() const override;
@@ -29,11 +29,11 @@ public:
 class MembershipFunction : public KBEntity {
 public:
     string name;
-    float min;
-    float max;
+    double min;
+    double max;
     vector<MFPoint*> points;
 
-    MembershipFunction(const string& name, float min, float max, const vector<MFPoint*>& points);
+    MembershipFunction(const string& name, double min, double max, const vector<MFPoint*>& points);
 
     map<string, string> getAttrs() const override;
     vector<xmlNodePtr> getInnerXML() const override;

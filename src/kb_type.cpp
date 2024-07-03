@@ -7,6 +7,7 @@
 #include <libxml/tree.h>
 #include <json/value.h>
 #include <sstream>
+#include "utils.h"
 
 using namespace std;
 
@@ -39,7 +40,7 @@ string KBType::KRL() const
     if (!innerKRL.empty()) {
         ss << innerKRL << endl;
     }
-    ss << "КОММЕНТАРИЙ " << (getDesc() != NULL ? getDesc() : getId()) << endl;
+    ss << "КОММЕНТАРИЙ " << (getDesc() != nullptr ? getDesc() : getId()) << endl;
     return ss.str();
 }
 
@@ -47,7 +48,7 @@ map<string, string> KBType::getAttrs() const
 {
     map<string, string> attrs = KBIdentity::getAttrs();
     attrs["meta"] = getMeta();
-    attrs["desc"] = getDesc() != NULL ? string(getDesc()) : getId();
+    attrs["desc"] = getDesc() != nullptr ? string(getDesc()) : getId();
     return attrs;
 }
 
@@ -94,20 +95,20 @@ string KBNumericType::getInnerKRL() const
 map<string, string> KBNumericType::getAttrs() const
 {
     map<string, string> attrs = KBType::getAttrs();
-    attrs["from"] = to_string(from);
-    attrs["to"] = to_string(to);
+    attrs["from"] = doubleToString(from);
+    attrs["to"] = doubleToString(to);
     return attrs;
 }
 
 vector<xmlNodePtr> KBNumericType::getInnerXML() const
 {
     vector<xmlNodePtr> innerXML;
-    xmlNodePtr fromNode = xmlNewNode(NULL, BAD_CAST "from");
-    xmlNodeSetContent(fromNode, BAD_CAST to_string(from).c_str());
+    xmlNodePtr fromNode = xmlNewNode(nullptr, BAD_CAST "from");
+    xmlNodeSetContent(fromNode, BAD_CAST doubleToString(from).c_str());
     innerXML.push_back(fromNode);
 
-    xmlNodePtr toNode = xmlNewNode(NULL, BAD_CAST "to");
-    xmlNodeSetContent(toNode, BAD_CAST to_string(to).c_str());
+    xmlNodePtr toNode = xmlNewNode(nullptr, BAD_CAST "to");
+    xmlNodeSetContent(toNode, BAD_CAST doubleToString(to).c_str());
     innerXML.push_back(toNode);
 
     return innerXML;
@@ -145,7 +146,7 @@ KBNumericType *KBNumericType::fromXML(xmlNodePtr node)
 KBNumericType *KBNumericType::fromJSON(const Json::Value &json)
 {
     string id = json["id"].asString();
-    const char *desc = json["desc"].isNull() ? NULL : json["desc"].asCString();
+    const char *desc = json["desc"].isNull() ? nullptr : json["desc"].asCString();
     double from = json["from"].asDouble();
     double to = json["to"].asDouble();
 
@@ -177,7 +178,7 @@ vector<xmlNodePtr> KBSymbolicType::getInnerXML() const
     vector<xmlNodePtr> innerXML;
     for (const string &v : values)
     {
-        xmlNodePtr valueNode = xmlNewNode(NULL, BAD_CAST "value");
+        xmlNodePtr valueNode = xmlNewNode(nullptr, BAD_CAST "value");
         xmlNodeSetContent(valueNode, BAD_CAST v.c_str());
         innerXML.push_back(valueNode);
     }
@@ -217,7 +218,7 @@ KBSymbolicType *KBSymbolicType::fromXML(xmlNodePtr node)
 KBSymbolicType *KBSymbolicType::fromJSON(const Json::Value &json)
 {
     string id = json["id"].asString();
-    const char *desc = json["desc"].isNull() ? NULL : json["desc"].asCString();
+    const char *desc = json["desc"].isNull() ? nullptr : json["desc"].asCString();
     vector<string> values;
     for (const Json::Value &value : json["values"])
     {

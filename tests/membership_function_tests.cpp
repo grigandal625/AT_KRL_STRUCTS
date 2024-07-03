@@ -16,8 +16,8 @@ TEST(MFPointTest, Initialization) {
 TEST(MFPointTest, GetAttrs) {
     MFPoint point(1.5, 2.5);
     auto attrs = point.getAttrs();
-    EXPECT_EQ(attrs["x"], "1.500000");
-    EXPECT_EQ(attrs["y"], "2.500000");
+    EXPECT_EQ(attrs["x"], "1.5");
+    EXPECT_EQ(attrs["y"], "2.5");
 }
 
 TEST(MFPointTest, KRL) {
@@ -28,13 +28,13 @@ TEST(MFPointTest, KRL) {
 TEST(MFPointTest, ToJSON) {
     MFPoint point(1.5, 2.5);
     auto json = point.toJSON();
-    EXPECT_EQ(json["x"].asFloat(), 1.5);
-    EXPECT_EQ(json["y"].asFloat(), 2.5);
+    EXPECT_EQ(json["x"].asDouble(), 1.5);
+    EXPECT_EQ(json["y"].asDouble(), 2.5);
 }
 
 TEST(MFPointTest, FromXML) {
     const char* xmlStr = "<point x=\"1.5\" y=\"2.5\"/>";
-    xmlDocPtr doc = xmlReadMemory(xmlStr, strlen(xmlStr), NULL, NULL, 0);
+    xmlDocPtr doc = xmlReadMemory(xmlStr, strlen(xmlStr), nullptr, nullptr, 0);
     xmlNodePtr root = xmlDocGetRootElement(doc);
     MFPoint* point = MFPoint::fromXML(root);
     EXPECT_EQ(point->x, 1.5);
@@ -76,8 +76,8 @@ TEST(MembershipFunctionTest, ToJSON) {
     MembershipFunction mf("TestFunction", 0.0, 5.0, points);
     auto json = mf.toJSON();
     EXPECT_EQ(json["name"].asString(), "TestFunction");
-    EXPECT_EQ(json["min"].asFloat(), 0.0);
-    EXPECT_EQ(json["max"].asFloat(), 5.0);
+    EXPECT_EQ(json["min"].asDouble(), 0.0);
+    EXPECT_EQ(json["max"].asDouble(), 5.0);
     EXPECT_EQ(json["points"].size(), 2);
 }
 
@@ -91,7 +91,7 @@ TEST(MembershipFunctionTest, FromXML) {
             </mf>
         </parameter>
     )";
-    xmlDocPtr doc = xmlReadMemory(xmlStr, strlen(xmlStr), NULL, NULL, 0);
+    xmlDocPtr doc = xmlReadMemory(xmlStr, strlen(xmlStr), nullptr, nullptr, 0);
     xmlNodePtr root = xmlDocGetRootElement(doc);
     MembershipFunction* mf = MembershipFunction::fromXML(root);
     EXPECT_EQ(mf->name, "TestFunction");

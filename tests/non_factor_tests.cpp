@@ -46,14 +46,14 @@ TEST(NonFactorTest, TestFromJSON) {
 TEST(NonFactorTest, TestToXML) {
     NonFactor nf(75.0, 80.0, 90.0);
     xmlNodePtr node = nf.toXML();
-    EXPECT_STREQ((const char*)xmlGetProp(node, BAD_CAST "belief"), "75.000000");
-    EXPECT_STREQ((const char*)xmlGetProp(node, BAD_CAST "probability"), "80.000000");
-    EXPECT_STREQ((const char*)xmlGetProp(node, BAD_CAST "accuracy"), "90.000000");
+    EXPECT_STREQ((const char*)xmlGetProp(node, BAD_CAST "belief"), "75");
+    EXPECT_STREQ((const char*)xmlGetProp(node, BAD_CAST "probability"), "80");
+    EXPECT_STREQ((const char*)xmlGetProp(node, BAD_CAST "accuracy"), "90");
     xmlFreeNode(node);
 }
 
 TEST(NonFactorTest, TestFromXML) {
-    xmlNodePtr node = xmlNewNode(NULL, BAD_CAST "with");
+    xmlNodePtr node = xmlNewNode(nullptr, BAD_CAST "with");
     xmlNewProp(node, BAD_CAST "belief", BAD_CAST "75.0");
     xmlNewProp(node, BAD_CAST "probability", BAD_CAST "80.0");
     xmlNewProp(node, BAD_CAST "accuracy", BAD_CAST "90.0");

@@ -20,7 +20,7 @@ map<string, string> KBEntity::getAttrs() const
 xmlNodePtr KBEntity::toXML() const
 {
     map<string, string> attrs = this->getAttrs();
-    xmlNodePtr result = xmlNewNode(NULL, BAD_CAST this->tag.c_str());
+    xmlNodePtr result = xmlNewNode(nullptr, BAD_CAST this->tag.c_str());
     for (map<string, string>::iterator it = attrs.begin(); it != attrs.end(); ++it)
     {
         xmlNewProp(result, BAD_CAST it->first.c_str(), BAD_CAST it->second.c_str());
@@ -55,33 +55,33 @@ Json::Value KBEntity::toJSON() const
 
 
 KBIdentity::KBIdentity(const string id, const string tag, const char* desc) : KBEntity(tag), id(id) {
-    if (desc != NULL)
+    if (desc != nullptr)
     {
         this->desc = new char[strlen(desc) + 1];
         strcpy(this->desc, desc);
     }
     else
     {
-        this->desc = NULL;
+        this->desc = nullptr;
     }
 }
 
 void KBIdentity::setDesc(const char* desc) {
-    if (desc != NULL)
+    if (desc != nullptr)
     {
         this->desc = new char[strlen(desc) + 1];
         strcpy(this->desc, desc);
     }
     else
     {
-        this->desc = NULL;
+        this->desc = nullptr;
     }
 }
 
 map<string, string> KBIdentity::getAttrs() const {
     map<string, string> result = KBEntity::getAttrs();
     result["id"] = this->id;
-    if (this->desc!= NULL) {
+    if (this->desc!= nullptr) {
         result["desc"] = this->desc;
     }
     return result;

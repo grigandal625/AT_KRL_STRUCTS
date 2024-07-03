@@ -3,16 +3,17 @@
 #include <libxml/parser.h>
 #include <libxml/tree.h>
 #include <json/json.h>
+#include "utils.h"
 
 using namespace std;
 
 // Реализация класса MFPoint
-MFPoint::MFPoint(float x, float y) : KBEntity("point"), x(x), y(y) {}
+MFPoint::MFPoint(double x, double y) : KBEntity("point"), x(x), y(y) {}
 
 map<string, string> MFPoint::getAttrs() const {
     map<string, string> attrs = KBEntity::getAttrs();
-    attrs["x"] = to_string(x);
-    attrs["y"] = to_string(y);
+    attrs["x"] = doubleToString(x);
+    attrs["y"] = doubleToString(y);
     return attrs;
 }
 
@@ -30,19 +31,19 @@ Json::Value MFPoint::toJSON() const {
 }
 
 MFPoint* MFPoint::fromXML(xmlNodePtr xml) {
-    float x = stof((const char*)xmlGetProp(xml, (const xmlChar*)"x"));
-    float y = stof((const char*)xmlGetProp(xml, (const xmlChar*)"y"));
+    double x = stof((const char*)xmlGetProp(xml, (const xmlChar*)"x"));
+    double y = stof((const char*)xmlGetProp(xml, (const xmlChar*)"y"));
     return new MFPoint(x, y);
 }
 
 MFPoint* MFPoint::fromJSON(const Json::Value& json) {
-    float x = json["x"].asFloat();
-    float y = json["y"].asFloat();
+    double x = json["x"].asDouble();
+    double y = json["y"].asDouble();
     return new MFPoint(x, y);
 }
 
 // Реализация класса MembershipFunction
-MembershipFunction::MembershipFunction(const string& name, float min, float max, const vector<MFPoint*>& points)
+MembershipFunction::MembershipFunction(const string& name, double min, double max, const vector<MFPoint*>& points)
     : KBEntity("parameter"), name(name), min(min), max(max) {
     this->points = {};
     for (auto& point : points) {
@@ -90,8 +91,8 @@ Json::Value MembershipFunction::toJSON() const {
 }
 
 MembershipFunction* MembershipFunction::fromXML(xmlNodePtr xml) {
-    float min = stof((const char*)xmlGetProp(xml, (const xmlChar*)"min-value"));
-    float max = stof((const char*)xmlGetProp(xml, (const xmlChar*)"max-value"));
+    double min = stof((const char*)xmlGetProp(xml, (const xmlChar*)"min-value"));
+    double max = stof((const char*)xmlGetProp(xml, (const xmlChar*)"max-value"));
 
     xmlNodePtr valueElem = xmlFirstElementChild(xml);
     string name = (const char*)xmlNodeGetContent(valueElem);
@@ -107,8 +108,8 @@ MembershipFunction* MembershipFunction::fromXML(xmlNodePtr xml) {
 
 MembershipFunction* MembershipFunction::fromJSON(const Json::Value& json) {
     string name = json["name"].asString();
-    float min = json["min"].asFloat();
-    float max = json["max"].asFloat();
+    double min = json["min"].asDouble();
+    double max = json["max"].asDouble();
     vector<MFPoint*> points;
     for (const auto& pointJson : json["points"]) {
         points.push_back(MFPoint::fromJSON(pointJson));

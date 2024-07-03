@@ -1,5 +1,6 @@
 #include "non_factor.h"
 #include <stdexcept>
+#include "utils.h"
 
 using namespace std;
 
@@ -14,6 +15,10 @@ NonFactor::NonFactor(double belief, double probability, double accuracy)
     this->initialized = (belief != 50.0) || (probability != 100.0) || (accuracy != 0.0);
 }
 
+NonFactor* NonFactor::copy() const {
+    return new NonFactor(belief, probability, accuracy);
+}
+
 map<string, string> NonFactor::getAttrs() const {
     map<string, string> attrs = KBEntity::getAttrs();
     attrs["belief"] = to_string(belief);
@@ -23,10 +28,10 @@ map<string, string> NonFactor::getAttrs() const {
 }
 
 xmlNodePtr NonFactor::toXML() const {
-    xmlNodePtr node = xmlNewNode(NULL, BAD_CAST this->getTag().c_str());
-    xmlNewProp(node, BAD_CAST "belief", BAD_CAST to_string(belief).c_str());
-    xmlNewProp(node, BAD_CAST "probability", BAD_CAST to_string(probability).c_str());
-    xmlNewProp(node, BAD_CAST "accuracy", BAD_CAST to_string(accuracy).c_str());
+    xmlNodePtr node = xmlNewNode(nullptr, BAD_CAST this->getTag().c_str());
+    xmlNewProp(node, BAD_CAST "belief", BAD_CAST doubleToString(belief).c_str());
+    xmlNewProp(node, BAD_CAST "probability", BAD_CAST doubleToString(probability).c_str());
+    xmlNewProp(node, BAD_CAST "accuracy", BAD_CAST doubleToString(accuracy).c_str());
     return node;
 }
 
@@ -85,7 +90,7 @@ bool NonFactor::isDefault() const {
 }
 
 string NonFactor::KRL() const {
-    return "УВЕРЕННОСТЬ [" + to_string(belief) + "; " + to_string(probability) + "] ТОЧНОСТЬ " + to_string(accuracy);
+    return "УВЕРЕННОСТЬ [" + doubleToString(belief) + "; " + doubleToString(probability) + "] ТОЧНОСТЬ " + doubleToString(accuracy);
 }
 
 string NonFactor::getXMLOwnerPath() const {

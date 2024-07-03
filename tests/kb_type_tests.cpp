@@ -60,14 +60,14 @@ TEST(KBNumericTypeTest, XMLSerialization) {
     const char* fromContent = (const char*)xmlNodeGetContent(fromNode);
 
     EXPECT_STREQ(fromName, "from");
-    EXPECT_STREQ(fromContent, "0.000000");
+    EXPECT_STREQ(fromContent, "0");
 
     xmlNodePtr toNode = xmlNextElementSibling(fromNode);
     const char* toName = (const char*)toNode->name;
     const char* toContent = (const char*)xmlNodeGetContent(toNode);
 
     EXPECT_STREQ(toName, "to");
-    EXPECT_STREQ(toContent, "10.000000");
+    EXPECT_STREQ(toContent, "10");
 
     KBNumericType* deserialized = KBNumericType::fromXML(xml);
     const string& deserializedId = deserialized->getId();

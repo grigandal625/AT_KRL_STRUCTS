@@ -6,7 +6,7 @@
 #include <json/json.h>
 
 TEST(KBValueTest, TestFromXMLBoolean) {
-    xmlNodePtr node = xmlNewNode(NULL, BAD_CAST "value");
+    xmlNodePtr node = xmlNewNode(nullptr, BAD_CAST "value");
     xmlNodeSetContent(node, BAD_CAST "True");
 
     KBValue* value = KBValue::fromXML(node);
@@ -22,7 +22,7 @@ TEST(KBValueTest, TestFromXMLBoolean) {
 }
 
 TEST(KBValueTest, TestFromXMLNumeric) {
-    xmlNodePtr node = xmlNewNode(NULL, BAD_CAST "value");
+    xmlNodePtr node = xmlNewNode(nullptr, BAD_CAST "value");
     xmlNodeSetContent(node, BAD_CAST "42.0");
 
     KBValue* value = KBValue::fromXML(node);
@@ -38,7 +38,7 @@ TEST(KBValueTest, TestFromXMLNumeric) {
 }
 
 TEST(KBValueTest, TestFromXMLSymbolic) {
-    xmlNodePtr node = xmlNewNode(NULL, BAD_CAST "value");
+    xmlNodePtr node = xmlNewNode(nullptr, BAD_CAST "value");
     xmlNodeSetContent(node, BAD_CAST "hello");
 
     KBValue* value = KBValue::fromXML(node);
