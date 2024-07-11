@@ -4,6 +4,8 @@
 #include <json/json.h>
 #include <regex>
 #include "utils.h"
+#include "kb_operation.h"
+#include "kb_reference.h"
 
 using namespace std;
 
@@ -47,19 +49,45 @@ xmlNodePtr Evaluatable::toXML() const
     return node;
 }
 
-Evaluatable *Evaluatable::fromXML(xmlNodePtr node)
+Evaluatable *Evaluatable::fromXML(xmlNodePtr xml)
 {
-    // Implement the logic to parse XML node and return appropriate subclass instance
-    // Raise an error for unknown tags
-    // Similar to the Python code provided
-    // This part is left unimplemented intentionally
+    const char* tag = (const char*)xml->name;
+
+        if (strcmp(tag, "value") == 0) {
+            // Assuming KBValue has a static method fromXML
+            return KBValue::fromXML(xml);
+        }
+        else if (strcmp(tag, "ref") == 0) {
+            // Assuming KBReference has a static method fromXML
+            return KBReference::fromXML(xml);
+        }
+        // else if (strcmp(tag, "EvRel") == 0 || strcmp(tag, "IntRel") == 0 || strcmp(tag, "EvIntRel") == 0) {
+        //     // Assuming KBAllenOperation has a static method fromXML
+        //     return KBAllenOperation::fromXML(xml);
+        // }
+        else {
+            // Assuming KBOperation has a static method fromXML
+            return KBOperation::fromXML(xml);
+        }
 }
 
 Evaluatable *Evaluatable::fromJSON(const Json::Value &json)
 {
-    // Implement the logic to parse JSON and return appropriate subclass instance
-    // Raise an error for unknown tags
-    // This part is left unimplemented intentionally
+    string tag = json["tag"].asString();
+
+        if (tag == "value") {
+            return KBValue::fromJSON(json);
+        }
+        else if (tag == "ref") {
+            return KBReference::fromJSON(json);
+        }
+        // else if (tag == "EvRel" || tag == "IntRel" || tag == "EvIntRel") {
+        //     // Assuming KBAllenOperation has a static method fromJSON
+        //     return KBAllenOperation::fromJSON(json);
+        // }
+        else {
+            return KBOperation::fromJSON(json);
+        }
 }
 
 string Evaluatable::KRL() const

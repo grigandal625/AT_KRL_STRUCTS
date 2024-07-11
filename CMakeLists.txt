@@ -25,6 +25,7 @@ set(SOURCE_FILES
     src/non_factor.cpp
     src/kb_value.cpp
     src/kb_reference.cpp
+    src/kb_operation.cpp
 )
 
 set(TEST_FILES
@@ -34,6 +35,7 @@ set(TEST_FILES
     tests/non_factor_tests.cpp
     tests/kb_value_tests.cpp
     tests/kb_reference_tests.cpp
+    tests/kb_operation_tests.cpp
 )
 
 # Создаем исполняемый файл для тестов
